@@ -1,23 +1,31 @@
 import React from 'react';
 import './Product.css'
 
-const Product = () => {
+const Product = ({id,title,img,price,rating}) => {
     return (
         <div className="product">
             <div className="product_info">
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, nam.
+                <p>{title}
                 </p>
                 <p className="product_price">
                     <small>$</small>
-                    <strong>19.99</strong>
+                    <strong>{price}</strong>
                 </p>
                 <div className="product_rating">
-                    <p>*</p>
-                    <p>*</p>
-                    <p>*</p>
+                    {
+                        Array(rating)
+                        .fill()
+                        .map((_, i) =>(
+                            <p>⭐</p>
+                        ))
+                    }
+                    
+                    
                 </div>
-                <img src="https://www.awesomedynamic.com/wp-content/uploads/2018/02/awesome-dynamic-amazon-product-photography-camera.png" alt="" />
-            </div>
+                </div>
+                <img src={img} alt="" />
+                <button>Add to basket</button>
+            
 
         </div>
     );
