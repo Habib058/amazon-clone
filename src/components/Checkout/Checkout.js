@@ -5,7 +5,7 @@ import Subtotal from '../Subtotal/Subtotal';
 import './Checkout.css'
 
 const Checkout = () => {
-    const [{ basket }, dispatch] = useStateValue();
+    const [{ basket, user }, dispatch] = useStateValue();
     console.log(basket);
     return (
         <div className="checkout">
@@ -13,6 +13,7 @@ const Checkout = () => {
                <img className="checkout_ad" src="https://images-eu.ssl-images-amazon.com/images/G/31/gateway-2015/amazonshop/Desktop_Banner_Recruitment_Website.jpg" alt="" />
 
                <div>
+                   <h3> Hello {user?.email}</h3>
                    <h2 className="checkout_title">Your Shopping Basket</h2>
                    {
                        basket.map(item=>(
