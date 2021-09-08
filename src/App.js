@@ -13,12 +13,17 @@ import { useEffect } from 'react';
 import { onAuthStateChanged } from "firebase/auth";
 import { useStateValue } from './components/StateProvider';
 import { auth } from './firebase';
+import Payment from './components/Payment/Payment';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+const promise = loadStripe('pk_test_51JS6H8EYPmLgrhcdSwPcTkpIPO2UMmGO922zhxA0T3iH76QeqeNOhCgvKqLk1Gr40TqX7Dd58RsXfiFh6umCVI1l00C8nVgk0N')
 
 
 function App() {
-  const [{}, dispatch] = useStateValue();
+  const [{ }, dispatch] = useStateValue();
 
-  useEffect(()=>{
+  useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       console.log(user);
       if (user) {
@@ -26,20 +31,20 @@ function App() {
         // https://firebase.google.com/docs/reference/js/firebase.User
         // const uid = user.uid;
         dispatch({
-          type:"SET_USER",
-          user:user
+          type: "SET_USER",
+          user: user
         })
         // ...
       } else {
         // User is signed out
         // ...
         dispatch({
-          type:"SET_USER",
-          user:null
+          type: "SET_USER",
+          user: null
         })
       }
     });
-  },[])
+  }, [])
 
   return (
     <Router>
@@ -48,10 +53,16 @@ function App() {
           <Header />
           <Checkout />
         </Route>
-        <Route path ="/login">
-    <Login/>
+        <Route path="/login">
+          <Login />
         </Route>
-        <Route path="/">
+        <Route path="/payment">
+          <Header />
+          <Elements stripe={promise}>
+            <Payment />
+          </Elements>
+        </Route>
+        <Route exact path="/">
           <Header />
           <Home />
         </Route>
