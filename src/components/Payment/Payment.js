@@ -19,6 +19,7 @@ const Payment = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setProcessing(true);
         
     }
 
